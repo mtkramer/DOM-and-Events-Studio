@@ -3,13 +3,34 @@ let shuttle = {
     changeHeight: (x) => {
         shuttle.height += x;
     },
-    down: 0,
+    down: 100,
     right: 0
 };
 
-window.addEventListener('DOMContentLoaded', (event) => {
+function id(x) { return document.getElementById(x); }
 
-    function id(x) { return document.getElementById(x); }
+function move(direction) {
+    if (direction === 'up') {
+        shuttle.down -= 10;
+        shuttle.changeHeight(10000);
+    }
+    if (direction === 'down') {
+        shuttle.down += 10;
+        shuttle.changeHeight(-10000);
+    }
+    if (direction === 'right')
+        shuttle.right += 10;
+    if (direction === 'left')
+        shuttle.right -= 10;
+    if (!direction) {
+        shuttle.down = 100;
+        shuttle.right = 0;
+    }
+    id('rocket').style.top = String(shuttle.down) + 'px';
+    id('rocket').style.left = String(shuttle.right) + 'px';
+}
+
+window.addEventListener('DOMContentLoaded', () => {
 
     id('takeoff').addEventListener('click', () => {
         if (confirm('Confirm that the shuttle is ready for takeoff.')) {
@@ -18,7 +39,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
             shuttle.changeHeight(10000);
             id('spaceShuttleHeight').innerText = String(shuttle.height);
         }
-        move();
+        move('up');
     });
 
     id('landing').addEventListener('click', () => {
@@ -40,25 +61,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
         move();
     });
 
-    function move(direction) {
-        if (direction === 'up') {
-            shuttle.down -= 10;
-            shuttle.changeHeight(10000);
-        }
-        if (direction === 'down') {
-            shuttle.down += 10;
-            shuttle.changeHeight(-10000);
-        }
-        if (direction === 'right')
-            shuttle.right += 10;
-        if (direction === 'left')
-            shuttle.right -= 10;
-        if (!direction) {
-            shuttle.down = 0;
-            shuttle.right = 0;
-        }
-        id('rocket').style.top = String(shuttle.down) + 'px';
-        id('rocket').style.left = String(shuttle.right) + 'px';
-    }
+    id('up').addEventListener('click', () => {
+        move('up');
+    });
+    id('down').addEventListener('click', () => {
+        move('down');
+    });
+    id('left').addEventListener('click', () => {
+        move('left');
+    });
+    id('right').addEventListener('click', () => {
+        move('right');
+    });
 
 });
