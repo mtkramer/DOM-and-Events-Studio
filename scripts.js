@@ -12,23 +12,23 @@ function id(x) { return document.getElementById(x); }
 function move(direction) {
     if (direction === 'up') {
         shuttle.down -= 10;
-        shuttle.changeHeight(10000);
     }
     if (direction === 'down') {
         shuttle.down += 10;
-        shuttle.changeHeight(-10000);
     }
-    if (direction === 'right')
+    if (direction === 'right') {
         shuttle.right += 10;
-    if (direction === 'left')
+    }
+    if (direction === 'left') {
         shuttle.right -= 10;
+    }
     if (!direction) {
         shuttle.down = 100;
         shuttle.right = 0;
     }
     id('rocket').style.top = String(shuttle.down) + 'px';
     id('rocket').style.left = String(shuttle.right) + 'px';
-}
+};
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -38,8 +38,8 @@ window.addEventListener('DOMContentLoaded', () => {
             id('shuttleBackground').style.backgroundColor = 'blue';
             shuttle.changeHeight(10000);
             id('spaceShuttleHeight').innerText = String(shuttle.height);
+            move('up');
         }
-        move('up');
     });
 
     id('landing').addEventListener('click', () => {
